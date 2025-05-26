@@ -7,10 +7,9 @@ freeboard
 2. the act of freeing data from below the "waterline" and exposing it to the world.
 3. a damn-sexy, open source real-time dashboard builder/viewer for IOT and other web mashups.
 
-### Demo
-http://freeboard.github.io/freeboard
-
-https://freeboard.io
+### Changes
+I have modified some errors, my version suppose to be working properly
+*tested*
 
 ### Screenshots
 ![Weather](https://raw.github.com/Freeboard/branding/master/screenshots/freeboard-screenshot-1.jpg)
