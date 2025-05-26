@@ -1,20 +1,13 @@
-FROM node:6
+FROM nginx:alpine
 
-RUN mkdir -p /usr/share/nginx/html
+# Install git
+RUN apk add --no-cache git curl
 
-COPY . /usr/share/nginx/html/
+# Remove default nginx html files
+RUN rm -rf /usr/share/nginx/html/*
 
-RUN chown -R node:node /usr/share/nginx/html
+# Clone Freeboard repo
+RUN git clone https://github.com/werdegars/freeboard.git /usr/share/nginx/html
 
-USER node
-
-WORKDIR /usr/share/nginx/html
-
-RUN npm install; \
-    npm install grunt-cli underscore
-
-RUN ./node_modules/.bin/grunt
-
-VOLUME ["/usr/share/nginx/html"]
-
-CMD ["bash"]
+# Remove .git folder to reduce size
+RUN rm -rf /usr/share/nginx/html/.git
