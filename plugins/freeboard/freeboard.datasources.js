@@ -499,6 +499,110 @@
 			newInstanceCallback(new clockDatasource(settings, updateCallback));
 		}
 	});
+
+freeboard.loadDatasourcePlugin({
+        "type_name": "paho_mqtt_ws",
+        "display_name": "MQTT (Paho WebSocket)",
+        "description": "Connect to an MQTT broker using Paho over WebSocket.",
+        "external_scripts": [
+            "plugins/thirdparty/paho-mqtt.js"
+        ],
+        "settings": [
+            {
+                "name": "server",
+                "display_name": "MQTT Server (WebSocket URL)",
+                "type": "text",
+                "default_value": "ws://localhost:9001"
+            },
+            {
+                "name": "client_id",
+                "display_name": "Client ID",
+                "type": "text",
+                "default_value": "freeboard_" + new Date().getTime()
+            },
+            {
+                "name": "topic",
+                "display_name": "MQTT Topic",
+                "type": "text"
+            },
+            {
+                "name": "username",
+                "display_name": "Username",
+                "type": "text",
+                "required": false
+            },
+            {
+                "name": "password",
+                "display_name": "Password",
+                "type": "text",
+                "required": false
+            }
+        ],
+        newInstance: function (settings, newInstanceCallback, updateCallback) {
+            newInstanceCallback(new mqttDatasource(settings, updateCallback));
+        }
+    });
+
+	var mqttDatasource = function (settings, updateCallback) {
+        var self = this;
+        var currentSettings = settings;
+        var client;
+
+        function onConnect() {
+            console.log("Connected to MQTT");
+            client.subscribe(currentSettings.topic);
+        }
+
+        function onConnectionLost(responseObject) {
+            console.log("Connection lost: " + responseObject.errorMessage);
+        }
+
+        function onMessageArrived(message) {
+            console.log("Message received:", message.destinationName, message.payloadString);
+            updateCallback({ topic: message.destinationName, payload: message.payloadString });
+        }
+
+        function createClient() {
+            //client = new Paho.MQTT.Client(
+            //    currentSettings.server.replace(/^wss?:\/\//, ''),
+            //    currentSettings.client_id
+            //);
+
+            client = new Paho.MQTT.Client(
+                currentSettings.server.replace(/^wss?:\/\//, '').split(':')[0], // host only
+                parseInt(currentSettings.server.split(':')[2]),                 // port only
+                currentSettings.client_id
+            );
+
+            client.onConnectionLost = onConnectionLost;
+            client.onMessageArrived = onMessageArrived;
+
+            const options = {
+                onSuccess: onConnect,
+                useSSL: currentSettings.server.startsWith("wss://")
+            };
+
+            if (currentSettings.username) options.userName = currentSettings.username;
+            if (currentSettings.password) options.password = currentSettings.password;
+
+            client.connect(options);
+        }
+
+        self.onSettingsChanged = function (newSettings) {
+            if (client) client.disconnect();
+            currentSettings = newSettings;
+            createClient();
+        };
+
+        self.updateNow = function () { };
+
+        self.onDispose = function () {
+            if (client) client.disconnect();
+        };
+
+        createClient();
+    };
+	
 freeboard.loadDatasourcePlugin({
 		// **type_name** (required) : A unique name for this plugin. This name should be as unique as possible to avoid collisions with other plugins, and should follow naming conventions for javascript variable and function declarations.
 		"type_name"   : "meshblu",
