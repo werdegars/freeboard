@@ -1,0 +1,20 @@
+{
+	"version": 1,
+	"allow_edit": true,
+	"plugins": [],
+	"panes": [],
+	"datasources": [
+		{
+			"name": "DEMO",
+			"type": "paho_mqtt_ws",
+			"settings": {
+				"server": "ws://localhost:9880",
+				"client_id": "0",
+				"topic": "/",
+				"username": "user",
+				"password": "pass"
+			}
+		}
+	],
+	"columns": 3
+}
