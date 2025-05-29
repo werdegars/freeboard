@@ -20,12 +20,14 @@
             "lib/js/thirdparty/jquery.js",
             "lib/js/thirdparty/knockout.js",
             
-            // Then load the Freeboard plugin which depends on jQuery and Knockout.js
+            // Then load Underscore.js before freeboard_plugins.min.js
+            "lib/js/thirdparty/underscore.js",  <!-- This line is crucial -->
+
+            // Load the Freeboard plugin which depends on jQuery, Knockout, and Underscore
             "js/freeboard_plugins.min.js",
-            
+
             // Load other third-party libraries and Freeboard components
             "lib/js/thirdparty/jquery-ui.js",
-            "lib/js/thirdparty/underscore.js",
             "lib/js/thirdparty/jquery.gridster.js",
             "lib/js/thirdparty/jquery.caret.js",
             "lib/js/thirdparty/codemirror.js",
@@ -47,7 +49,6 @@
             // Load plugin scripts
             "plugins/freeboard/freeboard.datasources.js",
             "plugins/freeboard/freeboard.widgets.js",
-            "examples/plugin_example.js",
 
             // *** Load more plugins here ***
 
@@ -134,8 +135,7 @@
 </header>
 
 <div style="display:hidden">
-    <ul data-bind="template: { name: 'pane-template', foreach: panes}">
-    </ul>
+    <ul data-bind="template: { name: 'pane-template', foreach: panes}"></ul>
 </div>
 
 <script type="text/html" id="pane-template">
