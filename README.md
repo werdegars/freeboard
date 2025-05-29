@@ -20,8 +20,9 @@ Freeboard is a turn-key HTML-based "engine" for dashboards. Besides a nice looki
 The code here is the client-side portion of what you see when you visit a freeboard at http://freeboard.io. It does not include any of the server-side code for user management, saving to a database or public/private functionality— this is left up to you to implement should you want to use freeboard as an online service.
 
 ### Docker Build
-  - download the Dockerfile then run<br>
-  - docker build -t freeboard-mqtt-works .<br>
+  - download the Dockerfile then run
+  - docker build -t freeboard-mqtt-works .
+
 *enjoy*
 
 ### Copyright 
