@@ -8,7 +8,7 @@ freeboard
 3. a damn-sexy, open source real-time dashboard builder/viewer for IOT and other web mashups.
 
 ### Changes
-I have modified some errors, my version suppose to be working properly<br>*tested*
+I have fixed some errors, my version suppose to be working properly<br>*tested*
 
 ### Screenshots
 ![Weather](https://raw.github.com/Freeboard/branding/master/screenshots/freeboard-screenshot-1.jpg)
