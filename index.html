@@ -15,38 +15,49 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.2/mqttws31.min.js"></script>
     <script src="lib/js/thirdparty/head.js"></script>
     <script type="text/javascript">
-        head.js("js/freeboard_plugins.min.js",
-                "lib/js/thirdparty/knockout.js",
-                "lib/js/thirdparty/jquery.js",
-                "lib/js/thirdparty/jquery-ui.js",
-                "lib/js/thirdparty/underscore.js",
-                "lib/js/thirdparty/jquery.gridster.js",
-                "lib/js/thirdparty/jquery.caret.js",
-				"lib/js/thirdparty/codemirror.js",
-				"lib/js/thirdparty/jquery.xdomainrequest.js",
-                "lib/js/freeboard/FreeboardModel.js",
-                "lib/js/freeboard/DatasourceModel.js",
-                "lib/js/freeboard/PaneModel.js",
-                "lib/js/freeboard/WidgetModel.js",
-                "lib/js/freeboard/FreeboardUI.js",
-                "lib/js/freeboard/DialogBox.js",
-                "lib/js/freeboard/PluginEditor.js",
-                "lib/js/freeboard/ValueEditor.js",
-                "lib/js/freeboard/JSEditor.js",
-                "lib/js/freeboard/DeveloperConsole.js",
-                "lib/js/freeboard/freeboard.js",
-                "plugins/freeboard/freeboard.datasources.js",
-                "plugins/freeboard/freeboard.widgets.js",
-                "examples/plugin_example.js",
+        head.js(
+            // Load jQuery and Knockout.js first
+            "lib/js/thirdparty/jquery.js",
+            "lib/js/thirdparty/knockout.js",
+            
+            // Then load the Freeboard plugin which depends on jQuery and Knockout.js
+            "js/freeboard_plugins.min.js",
+            
+            // Load other third-party libraries and Freeboard components
+            "lib/js/thirdparty/jquery-ui.js",
+            "lib/js/thirdparty/underscore.js",
+            "lib/js/thirdparty/jquery.gridster.js",
+            "lib/js/thirdparty/jquery.caret.js",
+            "lib/js/thirdparty/codemirror.js",
+            "lib/js/thirdparty/jquery.xdomainrequest.js",
+            
+            // Load Freeboard related scripts
+            "lib/js/freeboard/FreeboardModel.js",
+            "lib/js/freeboard/DatasourceModel.js",
+            "lib/js/freeboard/PaneModel.js",
+            "lib/js/freeboard/WidgetModel.js",
+            "lib/js/freeboard/FreeboardUI.js",
+            "lib/js/freeboard/DialogBox.js",
+            "lib/js/freeboard/PluginEditor.js",
+            "lib/js/freeboard/ValueEditor.js",
+            "lib/js/freeboard/JSEditor.js",
+            "lib/js/freeboard/DeveloperConsole.js",
+            "lib/js/freeboard/freeboard.js",
+            
+            // Load plugin scripts
+            "plugins/freeboard/freeboard.datasources.js",
+            "plugins/freeboard/freeboard.widgets.js",
+            "examples/plugin_example.js",
 
-                // *** Load more plugins here ***
-                function(){
-                    $(function()
-                    { //DOM Ready
-						freeboard.setAssetRoot("/freeboard-ui/");
-                        freeboard.initialize(true);
-                    });
+            // *** Load more plugins here ***
+
+            function() {
+                $(function() {  // DOM Ready
+                    freeboard.setAssetRoot("/freeboard-ui/");
+                    freeboard.initialize(true);
                 });
+            }
+        );
     </script>
 </head>
 <body>
